@@ -12,16 +12,17 @@ class EventController extends Controller
      */
     public function index()
     {
-        //
+        $events = Event::query()
+            ->paginate();
+        return view('event.index', ['events' => $events]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Event $event)
+    public function create()
     {
-        $events = Event::all();
-        return view('event.create',compact("events"));
+        return view('event.create');
     }
 
     /**
@@ -50,7 +51,7 @@ class EventController extends Controller
     {
         $events = Event::all();
         //dd($events);
-        return view('dashboard',compact("events"));
+        return view('dashboard', compact("events"));
     }
 
     /**
