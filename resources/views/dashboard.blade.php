@@ -4,11 +4,15 @@
             {{ __('Dashboard') }}
         </h2>
     </x-slot>
-    <div class="py-12">
         <div class="bg-gray-700 shadow-sm sm:rounded-lg">
             <div class="p-4 dark:text-gray-100">
                 <div class="card-body">
-                    <table class="min-w-full table-auto border border-gray-300 shadow-md rounded-lg overflow-hidden">
+
+                    <div class="clearfix">
+                        <a class="no-underline bg-green-500 text-white px-4 py-2 rounded float-right hover:bg-green-600" href="{{ route('event.create') }}">Add Event</a>
+                    </div>
+
+                    <table class="mt-3 min-w-full table-auto border border-gray-300 shadow-md rounded-lg overflow-hidden">
                         <thead class="bg-gray-800 text-white">
                             <tr>
                                 <th class="px-2 py-2 text-left">#</th>
@@ -28,11 +32,15 @@
                                 <td class="px-2 py-2">{{ $loop->iteration }}</td>
                                 <td class="px-2 py-2">{{ $event->title }}</td>
                                 <td class="px-2 py-2">{{ $event->description }}</td>
-                                <td class="px-2 py-2 whitespace-nowrap">{{ \Carbon\Carbon::parse($event->start_time)->format('Y-m-d') }}</td>
-                                <td class="px-2 py-2 whitespace-nowrap">{{ \Carbon\Carbon::parse($event->start_time)->format('H:i A') }} - {{ \Carbon\Carbon::parse($event->end_time)->format('H:i A') }}</td>
+                                <td class="px-2 py-2 whitespace-nowrap">
+                                    {{ \Carbon\Carbon::parse($event->start_time)->format('Y-m-d') }}<br>
+                                    {{ \Carbon\Carbon::parse($event->end_time)->format('Y-m-d') }}
+                                </td>
+                                <td class="px-2 py-2 whitespace-nowrap">
+                                    {{ \Carbon\Carbon::parse($event->start_time)->format('H:i A') }}<br>
+                                    {{ \Carbon\Carbon::parse($event->end_time)->format('H:i A') }}</td>
                                 <td class="px-2 py-2">
-                                    <span class="px-2 py-1 rounded text-white
-                    {{ now()->lt($event->start_time) ? 'bg-blue-500' : (now()->between($event->start_time, $event->end_time) ? 'bg-green-500' : 'bg-red-500') }}">
+                                    <span class="px-2 py-1 rounded text-white {{ now()->lt($event->start_time) ? 'bg-blue-500' : (now()->between($event->start_time, $event->end_time) ? 'bg-green-500' : 'bg-red-500') }}">
                                         {{ now()->lt($event->start_time) ? 'Upcoming' : (now()->between($event->start_time, $event->end_time) ? 'Ongoing' : 'Ended') }}
                                     </span>
                                 </td>
@@ -40,8 +48,8 @@
                                 <td class="px-2 py-2">{{ $event->capacity }}</td>
                                 <td class="px-2 py-2">
                                     <div class="flex space-x-2">
-                                        <a class="no-underline bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600" href="/edit-ticket/{{$event->id}}">Edit</a>
-                                        <a class="no-underline bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600" href="/delete-ticket/{{$event->id}}">Delete</a>
+                                        <a class="no-underline bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600" href="">Edit</a>
+                                        <a class="no-underline bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600" href="">Delete</a>
                                     </div>
                                 </td>
                             </tr>
@@ -51,8 +59,6 @@
                 </div>
             </div>
         </div>
-    </div>
-
     </div>
 
 </x-app-layout>

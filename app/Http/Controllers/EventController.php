@@ -18,9 +18,10 @@ class EventController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Event $event)
     {
-        //
+        $events = Event::all();
+        return view('event.create',compact("events"));
     }
 
     /**
@@ -28,7 +29,18 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'start_time' => 'required|date',
+            'end_time' => 'required|date|after:start_time',
+            'location' => 'required|string|max:255',
+            'capacity' => 'required|integer|min:1',
+        ]);
+
+        Event::create($validated);
+
+        return redirect()->route('dashboard')->with('message', 'Event was created successfully!');
     }
 
     /**
@@ -37,6 +49,7 @@ class EventController extends Controller
     public function show(Event $event)
     {
         $events = Event::all();
+        //dd($events);
         return view('dashboard',compact("events"));
     }
 
