@@ -41,7 +41,7 @@ class EventController extends Controller
 
         Event::create($validated);
 
-        return redirect()->route('dashboard')->with('message', 'Event was created successfully!');
+        return to_route('event.index')->with('message', 'Event was created successfully!');
     }
 
     /**
@@ -51,7 +51,7 @@ class EventController extends Controller
     {
         $events = Event::all();
         //dd($events);
-        return view('dashboard', compact("events"));
+        return view('event.index', compact("events"));
     }
 
     /**
@@ -59,7 +59,7 @@ class EventController extends Controller
      */
     public function edit(Event $event)
     {
-        //
+        return view('event.edit', ['event' => $event]);
     }
 
     /**
@@ -67,7 +67,18 @@ class EventController extends Controller
      */
     public function update(Request $request, Event $event)
     {
-        //
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'start_time' => 'required|date',
+            'end_time' => 'required|date|after:start_time',
+            'location' => 'required|string|max:255',
+            'capacity' => 'required|integer|min:1',
+        ]);
+
+        $event->update($validated);
+
+        return to_route('event.show', $event)->with('message', 'Event was updated successfully');
     }
 
     /**

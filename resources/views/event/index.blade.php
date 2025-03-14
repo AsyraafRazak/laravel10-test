@@ -48,7 +48,7 @@
                                 <td class="px-2 py-2">{{ $event->capacity }}</td>
                                 <td class="px-2 py-2">
                                     <div class="flex space-x-2">
-                                        <a class="no-underline bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600" href="">Edit</a>
+                                        <a class="no-underline bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600" href="{{ route('event.edit', $event) }}">Edit</a>
                                         <a class="no-underline bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600" href="">Delete</a>
                                     </div>
                                 </td>
