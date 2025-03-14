@@ -78,7 +78,7 @@ class EventController extends Controller
 
         $event->update($validated);
 
-        return to_route('event.show', $event)->with('message', 'Event was updated successfully');
+        return to_route('event.index')->with('message', 'Event was updated successfully');
     }
 
     /**
@@ -86,6 +86,7 @@ class EventController extends Controller
      */
     public function destroy(Event $event)
     {
-        //
+        $event->delete();
+        return to_route('event.index')->with('message', 'Note was deleted successfully');
     }
 }
