@@ -49,9 +49,7 @@ class EventController extends Controller
      */
     public function show(Event $event)
     {
-        $events = Event::all();
-        //dd($events);
-        return view('event.index', compact("events"));
+        return view('event.edit', ['event' => $event]);
     }
 
     /**
