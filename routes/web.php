@@ -19,7 +19,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', [EventController::class, 'show'])
+Route::get('/dashboard', [EventController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 

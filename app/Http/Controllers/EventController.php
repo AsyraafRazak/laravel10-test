@@ -49,7 +49,7 @@ class EventController extends Controller
      */
     public function show(Event $event)
     {
-        return view('event.show', ['event' => $event]);
+        return view('event.index', ['event' => $event]);
     }
 
     /**
